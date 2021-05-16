@@ -9,14 +9,7 @@ pipeline{
             git credentialsId: 'github', url: 'https://github.com/kpreddy87/myweb'
             }
         }
-        stage ("Java") {
-                tools {
-                   jdk "java-11-openjdk-amd64"
-                }
-                steps {
-                    sh 'java -version'
-                }
-            }
+        
          stage("Maven Build"){
             steps{
                 sh "mvn clean package"
