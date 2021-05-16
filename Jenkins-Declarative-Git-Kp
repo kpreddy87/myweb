@@ -1,9 +1,7 @@
 pipeline{
     agent any
     environment{
-        JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
         PATH = "/opt/maven/bin:$PATH"
-        export PATH=$PATH:$JAVA_HOME/bin
     }
     stages{
         stage("Git Checkout"){
@@ -11,6 +9,14 @@ pipeline{
             git credentialsId: 'github', url: 'https://github.com/kpreddy87/myweb'
             }
         }
+        stage ("Java") {
+                tools {
+                   jdk "java-11-openjdk-amd64"
+                }
+                steps {
+                    sh 'java -version'
+                }
+            }
          stage("Maven Build"){
             steps{
                 sh "mvn clean package"
